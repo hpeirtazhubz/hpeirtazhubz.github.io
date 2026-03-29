@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hpeirtaz. - Secure</title>
+    <link rel="stylesheet" href="../css/satoshi.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #d9d9d9;
+            font-family: "Satoshi", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111;
+        }
+
+        .wrap {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .name {
+            font-size: 2.5rem;
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            user-select: none;
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+            transition: border-color 0.18s ease;
+        }
+
+        .row:focus-within {
+            border-color: rgba(0, 0, 0, 0.38);
+        }
+
+        .key {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font: inherit;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.62);
+            letter-spacing: 0.01em;
+        }
+
+        .key::placeholder {
+            color: rgba(0, 0, 0, 0.34);
+        }
+
+        .enter {
+            border: none;
+            background: transparent;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.34);
+            transition: color 0.16s ease, transform 0.16s ease;
+        }
+
+        .enter:hover {
+            color: rgba(0, 0, 0, 0.62);
+            transform: translateX(2px);
+        }
+
+        .enter svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
+        .note {
+            min-height: 14px;
+            margin-top: -18px;
+            font-size: 0.78rem;
+            color: rgba(0, 0, 0, 0.38);
+            letter-spacing: 0.01em;
+            opacity: 0;
+            transition: opacity 0.16s ease;
+        }
+
+        .note.show {
+            opacity: 1;
+        }
+
+        .shake {
+            animation: shake 0.24s ease;
+        }
+
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            50% { transform: translateX(4px); }
+            75% { transform: translateX(-3px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="name">ok whats next / -</div>
+
+    <div class="row" id="row">
+        <input
+                class="key"
+                id="pwd"
+                type="password"
+                placeholder="Enter Key"
+                autocomplete="off"
+        />
+
+        <button class="enter" id="go" aria-label="Enter">
+            <svg viewBox="0 0 24 24" fill="none">
+                <path
+                        d="M5 12H19M13 6L19 12L13 18"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                />
+            </svg>
+        </button>
+    </div>
+
+    <div class="note" id="note">oops. try again?</div>
+</div>
+
+<script>
+    const input = document.getElementById("pwd");
+    const button = document.getElementById("go");
+    const row = document.getElementById("row");
+    const note = document.getElementById("note");
+    // bro password??
+    const a = "tqkpmv";
+    const b = "eqttjiks";
+    const pass = a + b;
+
+    const nextPage = "./whatsinhere.html";
+
+    function check() {
+        const value = input.value.trim();
+
+        if (value === pass) {
+            note.classList.remove("show");
+            document.body.classList.add("fade-out");
+
+            setTimeout(() => {
+                window.location.href = nextPage;
+            }, 280);
+        } else {
+            row.classList.remove("shake");
+            void row.offsetWidth;
+            row.classList.add("shake");
+
+            note.classList.add("show");
+            input.value = "";
+            input.focus();
+        }
+    }
+
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            check();
+        }
+    });
+
+    button.addEventListener("click", check);
+</script>
+</body>
+</html>

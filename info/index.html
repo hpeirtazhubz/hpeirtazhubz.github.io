@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hpeirtaz. — Info</title>
+  <link rel="stylesheet" href="../css/satoshi.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: "Satoshi", sans-serif;
+      background: #111;
+      color: #fff;
+    }
+
+    .page {
+      display: flex;
+      height: 100vh;
+    }
+
+    .side {
+      width: 100%;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: #111;
+      position: relative;
+      z-index: 1;
+      scrollbar-width: none;
+    }
+
+    .side::-webkit-scrollbar {
+      display: none;
+    }
+
+    .head {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 15px;
+      background: #111;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .menu-btn,
+    .close-btn {
+      border: 0;
+      background: transparent;
+      color: #fff;
+      font: inherit;
+      font-size: 0.78rem;
+      cursor: pointer;
+      opacity: 0.72;
+      transition: opacity 0.15s ease;
+    }
+
+    .menu-btn:hover,
+    .close-btn:hover {
+      opacity: 1;
+    }
+
+    .info-wrap {
+      padding: 34px 18px 110px;
+    }
+
+    .info-title {
+      font-size: clamp(3.8rem, 10vw, 5.2rem);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+      margin-bottom: 80px;
+    }
+
+    .info-body {
+      max-width: 560px;
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
+      line-height: 1.22;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .info-body p {
+      margin-bottom: 34px;
+    }
+
+    .info-body a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .info-body a:hover {
+      opacity: 0.72;
+    }
+
+    .info-links {
+      margin-top: 26px;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .info-links a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .info-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .hero {
+      display: none;
+      flex: 1;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: blur(3px);
+      transform: scale(1.04);
+      opacity: 0.92;
+    }
+
+    .shade {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.28s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .page.menu-on .shade {
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-panel {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.24s ease;
+    }
+
+    .page.menu-on .hero-panel {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: flex-end;
+      padding: 13px 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      flex-shrink: 0;
+    }
+
+    .hero-menu-block {
+      padding: 24px 22px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero-title {
+      width: fit-content;
+      color: #fff;
+      text-decoration: none;
+      font-size: clamp(3.2rem, 6vw, 5.4rem);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    .hero-line {
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.75);
+      margin-bottom: 22px;
+    }
+
+    .hero-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .hero-nav a {
+      width: fit-content;
+      color: #fff;
+      text-decoration: none;
+      font-size: clamp(3.4rem, 6vw, 5.2rem);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+    }
+
+    .hero-nav a:hover {
+      opacity: 0.55;
+      transform: translateX(2px);
+    }
+
+    .hero-links {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.45;
+      max-width: 520px;
+    }
+
+    .hero-links a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .hero-links a:hover {
+      text-decoration: underline;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      background: #111;
+      display: none;
+      flex-direction: column;
+    }
+
+    .mobile-menu.show {
+      display: flex;
+    }
+
+    .mobile-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+    }
+
+    .mobile-menu-block {
+      padding: 22px 15px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .mobile-title {
+      width: fit-content;
+      color: #fff;
+      text-decoration: none;
+      font-size: clamp(3.2rem, 14vw, 5.4rem);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 18px;
+    }
+
+    .mobile-line {
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.75);
+      margin-bottom: 20px;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .mobile-nav a {
+      width: fit-content;
+      color: #fff;
+      text-decoration: none;
+      font-size: clamp(3.2rem, 14vw, 5rem);
+      font-weight: 700;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+    }
+
+    .mobile-nav a:hover {
+      opacity: 0.55;
+      transform: translateX(2px);
+    }
+
+    .mobile-foot {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.45;
+    }
+
+    .mobile-foot a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .mobile-foot a:hover {
+      text-decoration: underline;
+    }
+
+    .foot {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      background: rgba(17, 17, 17, 0.92);
+      backdrop-filter: blur(6px);
+    }
+
+    .foot-inner {
+      padding: 14px 15px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .foot-rule {
+      width: 180px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .foot-note {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.35);
+      line-height: 1.5;
+    }
+
+    @media (min-width: 720px) {
+      .side {
+        width: 50%;
+      }
+
+      .hero {
+        display: block;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-top">
+    <a class="name" href="../index.html">hpeirtaz.</a>
+    <button class="close-btn" type="button" id="mobileClose">close</button>
+  </div>
+
+  <div class="mobile-menu-block">
+    <a class="mobile-title" href="../index.html">hpeirtaz</a>
+
+    <div class="mobile-line"></div>
+
+    <nav class="mobile-nav">
+      <a href="../music/index.html">Music</a>
+      <a href="#">Info</a>
+    </nav>
+
+    <div class="mobile-line"></div>
+
+    <div class="mobile-foot">
+      <a href="https://soundcloud.com/hpeirtaz">SoundCloud</a>,
+      <a href="https://open.spotify.com/artist/67Rmrx5iacd5bx7pOnNjVb">Spotify</a>,
+      <a href="https://x.com/hpeirtaz_here">X(Twitter)</a>,
+      <a href="https://patreon.com/itshpeirtaz">Patreon</a>,
+      <a href="https://space.bilibili.com/434864188">Bilibili</a>,
+      <a href="https://afdian.com/a/itshpeirtaz">爱发电</a>,
+      <a href="https://music.163.com/#/artist?id=34490444">网易云音乐</a>,
+      more?
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page">
+  <div class="side">
+    <div class="head">
+      <a class="name" href="../index.html">hpeirtaz.</a>
+      <button class="menu-btn" type="button" id="menuOpen">menu</button>
+    </div>
+
+    <div class="info-wrap">
+      <h1 class="info-title">Info</h1>
+
+      <div class="info-body">
+        <p>just..shush!!</p>
+
+        <p>
+          artist/music producer from China<br>
+          indie electronic / rocktronic / ... producer
+        </p>
+
+        <p>
+          contact:
+          <a href="mailto:hpeirtaz_emodm@outlook.com">hpeirtaz_emodm@outlook.com</a>
+        </p>
+
+        <h4>Artists I like:</h4>
+
+        <h6><strong>Electronic:</strong> Porter Robinson, Madeon, Ninajirachi, Zedd, ISOxo, Skrillex, PAS TASTA, KOAN Sound, Fred again.., etc.</h6>
+
+        <h6><strong>Rock:</strong> concrete concrete, caroline, Geese, Racing Mount Pleasant, American Football, Covet, etc.</h6>
+
+        <h6><strong>Pop:</strong> Charli XCX, underscores, Oklou, Yorushika, etc.</h6>
+
+      </div>
+
+      <div class="info-links">
+        <a href="https://soundcloud.com/hpeirtaz">SoundCloud</a>,
+        <a href="https://open.spotify.com/artist/67Rmrx5iacd5bx7pOnNjVb">Spotify</a>,
+        <a href="https://x.com/hpeirtaz_here">X(Twitter)</a>,
+        <a href="https://patreon.com/itshpeirtaz">Patreon</a>,
+        <a href="https://space.bilibili.com/434864188">Bilibili</a>,
+        <a href="https://afdian.com/a/itshpeirtaz">爱发电</a>,
+        <a href="https://music.163.com/#/artist?id=34490444">网易云音乐</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <img src="../stick.jpg" alt="" />
+    <div class="shade"></div>
+
+    <div class="hero-panel">
+      <div class="hero-top">
+        <button class="close-btn" type="button" id="heroClose">close</button>
+      </div>
+
+      <div class="hero-menu-block">
+        <a class="hero-title" href="../index.html">hpeirtaz.</a>
+
+        <div class="hero-line"></div>
+
+        <nav class="hero-nav">
+          <a href="../music/index.html">Music</a>
+          <a href="#">Info</a>
+        </nav>
+
+        <div class="hero-line"></div>
+
+        <div class="hero-links">
+          <a href="https://soundcloud.com/hpeirtaz">SoundCloud</a>,
+          <a href="https://open.spotify.com/artist/67Rmrx5iacd5bx7pOnNjVb">Spotify</a>,
+          <a href="https://x.com/hpeirtaz_here">X(Twitter)</a>,
+          <a href="https://patreon.com/itshpeirtaz">Patreon</a>,
+          <a href="https://space.bilibili.com/434864188">Bilibili</a>,
+          <a href="https://afdian.com/a/itshpeirtaz">爱发电</a>,
+          <a href="https://music.163.com/#/artist?id=34490444">网易云音乐</a>,
+          more?
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <div class="foot-rule"></div>
+    <div class="foot-note">
+      creative & imaginative.
+    </div>
+  </div>
+</div>
+
+<script>
+  const page = document.getElementById("page");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const menuOpen = document.getElementById("menuOpen");
+  const mobileClose = document.getElementById("mobileClose");
+  const heroClose = document.getElementById("heroClose");
+
+  function wideEnough() {
+    return window.innerWidth >= 720;
+  }
+
+  function openMenu() {
+    if (wideEnough()) {
+      page.classList.add("menu-on");
+    } else {
+      mobileMenu.classList.add("show");
+    }
+  }
+
+  function closeMenu() {
+    page.classList.remove("menu-on");
+    mobileMenu.classList.remove("show");
+  }
+
+  menuOpen.addEventListener("click", openMenu);
+  mobileClose.addEventListener("click", closeMenu);
+  heroClose.addEventListener("click", closeMenu);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    const desktopOpen = page.classList.contains("menu-on");
+    const mobileOpen = mobileMenu.classList.contains("show");
+
+    if (desktopOpen && !wideEnough()) {
+      page.classList.remove("menu-on");
+      mobileMenu.classList.add("show");
+    }
+
+    if (mobileOpen && wideEnough()) {
+      mobileMenu.classList.remove("show");
+      page.classList.add("menu-on");
+    }
+  });
+</script>
+</body>
+</html>

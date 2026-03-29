@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hpeirtaz / site</title>
+  <link rel="stylesheet" href="./css/satoshi.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: "Satoshi", sans-serif;
+      color: #fff;
+      background: #000;
+    }
+
+    .background {
+      position: fixed;
+      inset: 0;
+      background: url("stick.jpg") center center / cover no-repeat;
+      transform: scale(1.05);
+      filter: blur(5px);
+    }
+
+    .background::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 38px 44px 30px;
+    }
+
+    .top {
+      max-width: 680px;
+    }
+
+    .name {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      margin-bottom: 14px;
+    }
+
+    .line {
+      width: 320px;
+      max-width: 70vw;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .content {
+      margin-top: 30px;
+      max-width: 760px;
+    }
+
+    .menu a {
+      display: block;
+      width: fit-content;
+      color: #fff;
+      text-decoration: none;
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+    }
+
+    .menu a:hover {
+      opacity: 0.68;
+      transform: translateX(2px);
+    }
+
+    .ghost {
+      opacity: 0.15;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .ghost:hover {
+      opacity: 0.85;
+      transform: translateX(4px);
+    }
+
+    .line.small {
+      margin: 16px 0 18px;
+    }
+
+    .links {
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.5;
+    }
+
+    .links a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 24px;
+    }
+
+    .note {
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      color: rgba(255, 255, 255, 0.36);
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        overflow: auto;
+      }
+
+      .page {
+        padding: 24px 20px 22px;
+      }
+
+      .name {
+        margin-bottom: 12px;
+      }
+
+      .content {
+        margin-top: 24px;
+      }
+
+      .menu a {
+        font-size: clamp(2.8rem, 14vw, 4.4rem);
+      }
+
+      .links {
+        font-size: 0.84rem;
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="background"></div>
+
+<div class="page">
+  <div class="top">
+    <div class="name">hpeirtaz.</div>
+    <div class="line"></div>
+  </div>
+
+  <div class="content">
+    <nav class="menu">
+      <a href="/music">Music</a>
+      <a href="/info">Info</a>
+      <a href="/fckoff">如果你是老师，点这个</a>
+      <a href="/pswrd" class="ghost">what's next?</a>
+    </nav>
+
+    <div class="line small"></div>
+
+    <div class="links">
+      <a href="https://soundcloud.com/hpeirtaz">SoundCloud</a>,
+      <a href="https://open.spotify.com/artist/67Rmrx5iacd5bx7pOnNjVb">Spotify</a>,
+      <a href="https://x.com/hpeirtaz_here">X(Twitter)</a>,
+      <a href="https://patreon.com/itshpeirtaz">Patreon</a>,
+      <a href="https://space.bilibili.com/434864188">Bilibili</a>,
+      <a href="https://afdian.com/a/itshpeirtaz">爱发电</a>,
+      <a href="https://music.163.com/#/artist?id=34490444">网易云音乐</a>,
+      more?
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="note">creative & imaginative.</div>
+  </div>
+</div>
+</body>
+</html>
