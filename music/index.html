@@ -94,6 +94,7 @@
             text-decoration: none;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             transition: background 0.15s ease;
+            padding: 8px 0 14px;
         }
 
         .card:hover {
@@ -101,11 +102,16 @@
         }
 
         .cover {
-            width: 100%;
+            width: 86%;
+            margin: 20px auto 0;
             aspect-ratio: 1;
             display: block;
             object-fit: cover;
-            background: #1a1a1a;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover .cover {
+            transform: scale(1.03);
         }
 
         .meta {
@@ -375,18 +381,18 @@
 <body>
 <div class="mobile-menu" id="mobileMenu">
     <div class="mobile-top">
-        <a class="name" href="../index.html">hpeirtaz</a>
+        <a class="name" href="../">hpeirtaz.</a>
         <button class="close-btn" type="button" id="mobileClose">close</button>
     </div>
 
     <div class="mobile-menu-block">
-        <a class="mobile-title" href="../index.html">hpeirtaz.</a>
+        <a class="mobile-title" href="../">hpeirtaz.</a>
 
         <div class="mobile-line"></div>
 
         <nav class="mobile-nav">
             <a href="#">Music</a>
-            <a href="../info/info.html">Info</a>
+            <a href="../info">Info</a>
         </nav>
 
         <div class="mobile-line"></div>
@@ -407,106 +413,84 @@
 <div class="page" id="page">
     <div class="side">
         <div class="head">
-            <a class="name" href="../index.html">hpeirtaz.</a>
+            <a class="name" href="../">hpeirtaz.</a>
             <button class="menu-btn" type="button" id="menuOpen">menu</button>
         </div>
 
         <div class="list">
-            <a class="card" href="https://music.163.com/album?id=367116014&uct2=U2FsdGVkX1/INF+Yplsfv+7DlvFcrmDlUQCzsdx29eg=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/u.jpg" alt="Underscores - U" />
+            <a class="card" href="https://music.163.com/song?id=2665992885&uct2=U2FsdGVkX18uORwu2fZ6v36ZMGWBOrNhxr2q3VEuaXg=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/asitseems.jpg" alt="As It Seems" />
                 <div class="meta">
-                    <div class="title">underscores. - U</div>
-                    <div class="sub">Album, 2026</div>
+                    <div class="title">as it seems. (with Lantsaich) [PHONO VOL.4]</div>
+                    <div class="sub">Single, PHONO Records, 2025</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=368227010&uct2=U2FsdGVkX18wWRCgzdCQNbnB8RqrGVf0Rc+XdMoPTGg=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/brikham.jpg" alt="Former hero - brikham" />
+            <a class="card" href="https://music.163.com/song?id=2641249848&uct2=U2FsdGVkX19sbtsgh59tfT242oj21F1zgG4egzkACpA=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/shineforu.jpg" alt="Shining For U" />
                 <div class="meta">
-                    <div class="title">Former Hero / Brikham - Birkham</div>
-                    <div class="sub">Album, 2026</div>
+                    <div class="title">Shining For U (with Bob Hou, Tribbec, Settled Edge, Layzzz, Amo Nova, Ariina桉奈)</div>
+                    <div class="sub">Single, PHONO Records, 2024</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=364564348&uct2=U2FsdGVkX1+cNfM0pmJ8zlnqs/TU1YoS7Y1EdCBVZiI=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/2ndside.jpg" alt="Yorushika - 2ndside" />
+            <a class="card" href="https://music.163.com/song?id=2638708776&uct2=U2FsdGVkX19NXnpNWl+vdXcVzvbwODTjeCa4SYxc//Q=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/simplestoryends.jpg" alt="Simple Story Ends" />
                 <div class="meta">
-                    <div class="title">Yorushika (ヨルシカ) - 二人称</div>
-                    <div class="sub">Album, 2026</div>
+                    <div class="title">Simple Story Ends. (with Lantsaich)</div>
+                    <div class="sub">Single, PHONO Records, 2024</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=281246261&uct2=U2FsdGVkX18IxrSu2HkbMAUIRwsYfn6rCXqBDEalgmM=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/tmdtf.jpg" alt="EAR - tmdtf" />
+            <a class="card" href="https://music.163.com/song?id=2609075490&uct2=U2FsdGVkX19XW/+SJSY/jfwG39FAjUlF4PwvelrkY94=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/belongtou.jpg" alt="belong to u" />
                 <div class="meta">
-                    <div class="title">EAR - The Most Dear and The Future</div>
-                    <div class="sub">Album, 2025</div>
+                    <div class="title">belong to u (with Bob Hou, Brik, Layzzz, Ariina桉奈)</div>
+                    <div class="sub">Single, PHONO Records, 2024</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=277581233&uct2=U2FsdGVkX1/c3RHwPSgkKGqaOQRCg3z0LXyH3XjSEfE=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/ilmc.jpg" alt="nina - ILMC" />
+            <a class="card" href="https://music.163.com/song?id=2608090329&uct2=U2FsdGVkX180cAMKFtotsiVNxHGdeC58xRGwvl2Qglk=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/os.jpg" alt="Occupied Sanctuary" />
                 <div class="meta">
-                    <div class="title">Ninajirachi - I Love My Computer</div>
-                    <div class="sub">Album, 2025</div>
+                    <div class="title">Occupied Sanctuary (with Sakanapaste, Caremi) [HertzRecords Vol.5]</div>
+                    <div class="sub">Single,Hertz Records, 2024</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=272780692&uct2=U2FsdGVkX1+RkLlciD7250NOtuwmx3cQA3efMqFI6Mc=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/caroline2.jpg" alt="caroline2" />
+            <a class="card" href="https://music.163.com/song?id=2106231413&uct2=U2FsdGVkX1/dAY4NelLSZxpc6+O3r2LBW/9YRQibrzg=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/eternalretu.jpg" alt="Eternal Returned" />
                 <div class="meta">
-                    <div class="title">caroline - caroline 2</div>
-                    <div class="sub">Album, 2025</div>
+                    <div class="title">eternal returned. (with Lantsaich) [PHONO VOL.3]</div>
+                    <div class="sub">Single, PHONO Records, 2023</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=263373444&uct2=U2FsdGVkX1+klFE2jmFgfF/wrurKtfyarcSnK32Yi+A=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/ghcvol1.jpg" alt="ghc" />
+            <a class="card" href="https://music.163.com/song?id=2098312848&uct2=U2FsdGVkX19JfpIQpQ+PXXMb0XcstRkIaKrhKK2tBs0=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/ops.jpg" alt="our painted sky. remix" />
                 <div class="meta">
-                    <div class="title">flipEMoff! - ghc: good hyperflip collection vol. 1</div>
-                    <div class="sub">Album, 2025, LMAO</div>
+                    <div class="title">our painted sky. (som3b0dy & hpeirtaz Re-imagined)</div>
+                    <div class="sub">Remix, Self-Release, 2023</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=250674900&uct2=U2FsdGVkX1/OeFw4nIIOOuAXqJom543gwtekNyZOHtg=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/bratbutdiff.jpg" alt="charli xcx - bratbut" />
+            <a class="card" href="https://music.163.com/song?id=2028106523&uct2=U2FsdGVkX18+7FJX6HDG7CZGKneUM0NdFZOJuXa4U6I=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/stillthere.jpg" alt="STILL THERE!" />
                 <div class="meta">
-                    <div class="title">Charli XCX - Brat and it’s completely different but also still brat</div>
-                    <div class="sub">Album, 2024</div>
+                    <div class="title">STILL THERE! (with Layzzz) [clockwise vol.1]</div>
+                    <div class="sub">Single, Soul Notes, 2023</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=250853956&uct2=U2FsdGVkX182AH2fLKlQlzRwB/eQHT+KNJrtodKc140=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/grandpop.jpg" alt="pas tasta - grandpop" />
+            <a class="card" href="https://music.163.com/song?id=2014600088&uct2=U2FsdGVkX1/EYXS/roiOul3ct2NmuJrbHOQeVvQL9yA=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/crescent.jpg" alt="crescent" />
                 <div class="meta">
-                    <div class="title">PAS TASTA - GRAND POP</div>
-                    <div class="sub">Album, 2024</div>
+                    <div class="title">crescent. (with Brik, Layzzz)</div>
+                    <div class="sub">Single, Hertz Records, 2023</div>
                 </div>
             </a>
 
-            <a class="card" href="https://music.163.com/album?id=126338915&uct2=U2FsdGVkX19dq/RddHBkSQWuQSgFEV32QfuRydJp4Ms=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/nurture.jpg" alt="Porter Robinson - Nurture" />
-                <div class="meta">
-                    <div class="title">Porter Robinson - Nurture</div>
-                    <div class="sub">Album, 2021</div>
-                </div>
-            </a>
 
-            <a class="card" href="https://music.163.com/album?id=126338915&uct2=U2FsdGVkX19dq/RddHBkSQWuQSgFEV32QfuRydJp4Ms=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/goodfaith.jpg" alt="Madeon - Good Faith" />
-                <div class="meta">
-                    <div class="title">Madeon - Good Faith</div>
-                    <div class="sub">Album, 2019</div>
-                </div>
-            </a>
-
-            <a class="card" href="https://music.163.com/album?id=39563890&uct2=U2FsdGVkX1/RVbRNuhgU7PERaTYkRUTFHvSIL97/8LI=" target="_blank" rel="noopener noreferrer">
-                <img class="cover" src="./covers/ooepu.jpg" alt="SOPHIE - OOEPU" />
-                <div class="meta">
-                    <div class="title">SOPHIE - OIL OF EVERY PEARL'S UN-INSIDES</div>
-                    <div class="sub">Album, 2018</div>
-                </div>
-            </a>
         </div>
     </div>
 
@@ -526,7 +510,7 @@
 
                 <nav class="hero-nav">
                     <a href="#">Music</a>
-                    <a href="../info/info.html">Info</a>
+                    <a href="../info">Info</a>
                 </nav>
 
                 <div class="hero-line"></div>
@@ -550,7 +534,7 @@
     <div class="foot-inner">
         <div class="foot-rule"></div>
         <div class="foot-note">
-            no releases yet, so this page is just a small recommendation list for now.
+            /. creative & imaginative ./
         </div>
     </div>
 </div>

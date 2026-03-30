@@ -102,7 +102,7 @@
     }
 
     .info-body p {
-      margin-bottom: 34px;
+      margin: 0;
     }
 
     .info-body a {
@@ -113,6 +113,61 @@
 
     .info-body a:hover {
       opacity: 0.72;
+    }
+
+    .info-section {
+      padding: 0 0 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .info-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .info-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .info-small-link {
+      margin-top: 12px;
+      margin-bottom: 22px;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.56);
+      line-height: 1.4;
+    }
+
+    .info-small-link a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .info-small-link a:hover {
+      opacity: 0.72;
+    }
+
+    .taste-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .taste-list p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.42;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .taste-list strong {
+      color: #fff;
+      font-weight: 700;
     }
 
     .info-links {
@@ -388,7 +443,7 @@
   </div>
 
   <div class="mobile-menu-block">
-    <a class="mobile-title" href="../index.html">hpeirtaz</a>
+    <a class="mobile-title" href="../index.html">hpeirtaz.</a>
 
     <div class="mobile-line"></div>
 
@@ -423,26 +478,41 @@
       <h1 class="info-title">Info</h1>
 
       <div class="info-body">
-        <p>just..shush!!</p>
+        <div class="info-section">
+          <p>just..shush!!</p>
+        </div>
 
-        <p>
-          artist/music producer from China<br>
-          indie electronic / rocktronic / ... producer
-        </p>
+        <div class="info-section">
+          <p>
+            artist/music producer from China<br>
+            indie electronic / rocktronic / ... producer
+          </p>
+        </div>
 
-        <p>
-          contact:
-          <a href="mailto:hpeirtaz_emodm@outlook.com">hpeirtaz_emodm@outlook.com</a>
-        </p>
+        <div class="info-section">
+          <p>
+            contact:
+            <a href="mailto:hpeirtaz_emodm@outlook.com">hpeirtaz_emodm@outlook.com</a>
+          </p>
+        </div>
 
-        <h4>Artists I like:</h4>
+        <div class="info-section">
+          <div class="info-label"><strong>Artists I like</strong></div>
 
-        <h6><strong>Electronic:</strong> Porter Robinson, Madeon, Ninajirachi, Zedd, ISOxo, Skrillex, PAS TASTA, KOAN Sound, Fred again.., etc.</h6>
+          <div class="taste-list">
+            <p><strong>Electronic:</strong> Porter Robinson, Madeon, Ninajirachi, Zedd, ISOxo, Skrillex, PAS TASTA, KOAN Sound, Fred again.., etc.</p>
 
-        <h6><strong>Rock:</strong> concrete concrete, caroline, Geese, Racing Mount Pleasant, American Football, Covet, etc.</h6>
+            <p><strong>Rock:</strong> concrete concrete, caroline, Geese, Racing Mount Pleasant, American Football, Covet, etc.</p>
 
-        <h6><strong>Pop:</strong> Charli XCX, underscores, Oklou, Yorushika, etc.</h6>
+            <p><strong>Pop:</strong> Charli XCX, underscores, Oklou, Yorushika, etc.</p>
+          </div>
 
+          <div class="info-small-link">
+            more detailed picks on the
+            <a href="../musicre/">music recs page</a>
+          </div>
+
+        </div>
       </div>
 
       <div class="info-links">
@@ -467,12 +537,12 @@
       </div>
 
       <div class="hero-menu-block">
-        <a class="hero-title" href="../index.html">hpeirtaz.</a>
+        <a class="hero-title" href="../">hpeirtaz.</a>
 
         <div class="hero-line"></div>
 
         <nav class="hero-nav">
-          <a href="../music/index.html">Music</a>
+          <a href="../music">Music</a>
           <a href="#">Info</a>
         </nav>
 

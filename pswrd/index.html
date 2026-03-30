@@ -36,6 +36,33 @@
             gap: 30px;
         }
 
+        .back {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            width: 34px;
+            height: 34px;
+            border: none;
+            background: transparent;
+            color: rgba(0, 0, 0, 0.42);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: color 0.16s ease, transform 0.16s ease;
+        }
+
+        .back:hover {
+            color: rgba(0, 0, 0, 0.68);
+            transform: translateX(-1px);
+        }
+
+        .back svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
         .name {
             font-size: 2.5rem;
             font-weight: 500;
@@ -130,6 +157,19 @@
     </style>
 </head>
 <body>
+
+<button class="back" onclick="window.location.href='../'" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none">
+        <path
+                d="M19 12H5M11 6L5 12L11 18"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+        />
+    </svg>
+</button>
+
 <div class="wrap">
     <div class="name">ok whats next / -</div>
 
@@ -164,11 +204,11 @@
     const row = document.getElementById("row");
     const note = document.getElementById("note");
     // bro password??
-    const a = "tqkpmv";
-    const b = "eqttjiks";
+    const a = "opus";
+    const b = "072823";
     const pass = a + b;
 
-    const nextPage = "./whatsinhere.html";
+    const nextPage = "../demos/";
 
     function check() {
         const value = input.value.trim();

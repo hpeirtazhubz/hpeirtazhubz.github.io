@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hpeirtaz — Music Recs</title>
+    <link rel="stylesheet" href="../css/satoshi.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: "Satoshi", sans-serif;
+            background: #111;
+            color: #fff;
+        }
+
+        .page {
+            display: flex;
+            height: 100vh;
+        }
+
+        .side {
+            width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            background: #111;
+            position: relative;
+            z-index: 1;
+            scrollbar-width: none;
+        }
+
+        .side::-webkit-scrollbar {
+            display: none;
+        }
+
+        .head {
+            position: sticky;
+            top: 0;
+            z-index: 12;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 15px;
+            background: #111;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .name {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .menu-btn,
+        .close-btn {
+            border: 0;
+            background: transparent;
+            color: #fff;
+            font: inherit;
+            font-size: 0.78rem;
+            cursor: pointer;
+            opacity: 0.72;
+            transition: opacity 0.15s ease;
+        }
+
+        .menu-btn:hover,
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        .list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            padding: 14px 10px 88px;
+        }
+
+        .card {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            transition: background 0.15s ease;
+            padding: 8px 0 12px;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .cover {
+            width: 92%;
+            margin: 10px auto 0;
+            aspect-ratio: 1;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .card:hover .cover {
+            transform: scale(1.02);
+        }
+
+        .meta {
+            padding: 6px 10px 8px;
+            background: #111;
+        }
+
+        .title {
+            font-size: 0.78rem;
+            font-weight: 500;
+            line-height: 1.3;
+            color: #fff;
+        }
+
+        .sub {
+            margin-top: 2px;
+            font-size: 0.68rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero {
+            display: none;
+            flex: 1;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: blur(3px);
+            transform: scale(1.04);
+            opacity: 0.92;
+        }
+
+        .shade {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.28s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .page.menu-on .shade {
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .hero-panel {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.24s ease;
+        }
+
+        .page.menu-on .hero-panel {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hero-top {
+            display: flex;
+            justify-content: flex-end;
+            padding: 13px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            flex-shrink: 0;
+        }
+
+        .hero-menu-block {
+            padding: 24px 22px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero-title {
+            width: fit-content;
+            color: #fff;
+            text-decoration: none;
+            font-size: clamp(3.2rem, 6vw, 5.4rem);
+            font-weight: 700;
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            margin-bottom: 18px;
+        }
+
+        .hero-line {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.75);
+            margin-bottom: 22px;
+        }
+
+        .hero-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 22px;
+        }
+
+        .hero-nav a {
+            width: fit-content;
+            color: #fff;
+            text-decoration: none;
+            font-size: clamp(3.4rem, 6vw, 5.2rem);
+            font-weight: 700;
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            transition: opacity 0.16s ease, transform 0.16s ease;
+        }
+
+        .hero-nav a:hover {
+            opacity: 0.55;
+            transform: translateX(2px);
+        }
+
+        .hero-links {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.45;
+            max-width: 520px;
+        }
+
+        .hero-links a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .hero-links a:hover {
+            text-decoration: underline;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            background: #111;
+            display: none;
+            flex-direction: column;
+        }
+
+        .mobile-menu.show {
+            display: flex;
+        }
+
+        .mobile-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-block {
+            padding: 22px 15px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .mobile-title {
+            width: fit-content;
+            color: #fff;
+            text-decoration: none;
+            font-size: clamp(3.2rem, 14vw, 5.4rem);
+            font-weight: 700;
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            margin-bottom: 18px;
+        }
+
+        .mobile-line {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.75);
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav a {
+            width: fit-content;
+            color: #fff;
+            text-decoration: none;
+            font-size: clamp(3.2rem, 14vw, 5rem);
+            font-weight: 700;
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            transition: opacity 0.16s ease, transform 0.16s ease;
+        }
+
+        .mobile-nav a:hover {
+            opacity: 0.55;
+            transform: translateX(2px);
+        }
+
+        .mobile-foot {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.45;
+        }
+
+        .mobile-foot a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .mobile-foot a:hover {
+            text-decoration: underline;
+        }
+
+        .foot {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 30;
+            background: rgba(17, 17, 17, 0.92);
+            backdrop-filter: blur(6px);
+        }
+
+        .foot-inner {
+            padding: 14px 15px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .foot-rule {
+            width: 180px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .foot-note {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.35);
+            line-height: 1.5;
+        }
+
+
+        @media (min-width: 560px) {
+            .list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 14px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-top">
+        <a class="name" href="../">hpeirtaz</a>
+        <button class="close-btn" type="button" id="mobileClose">close</button>
+    </div>
+
+    <div class="mobile-menu-block">
+        <a class="mobile-title" href="../">hpeirtaz.</a>
+
+        <div class="mobile-line"></div>
+
+        <nav class="mobile-nav">
+            <a href="../music">Music</a>
+            <a href="../info">Info</a>
+        </nav>
+
+        <div class="mobile-line"></div>
+
+        <div class="mobile-foot">
+            <a href="https://soundcloud.com/hpeirtaz">SoundCloud</a>,
+            <a href="https://open.spotify.com/artist/67Rmrx5iacd5bx7pOnNjVb">Spotify</a>,
+            <a href="https://x.com/hpeirtaz_here">X(Twitter)</a>,
+            <a href="https://patreon.com/itshpeirtaz">Patreon</a>,
+            <a href="https://space.bilibili.com/434864188">Bilibili</a>,
+            <a href="https://afdian.com/a/itshpeirtaz">爱发电</a>,
+            <a href="https://music.163.com/#/artist?id=34490444">网易云音乐</a>,
+            more?
+        </div>
+    </div>
+</div>
+
+<div class="page" id="page">
+    <div class="side">
+        <div class="head">
+            <a class="name" href="#">My Music Recs!</a>
+            <button class="menu-btn" type="button" id="menuOpen">menu</button>
+        </div>
+
+        <div class="list">
+            <a class="card" href="https://music.163.com/album?id=367116014&uct2=U2FsdGVkX1/INF+Yplsfv+7DlvFcrmDlUQCzsdx29eg=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/u.jpg" alt="Underscores - U" />
+                <div class="meta">
+                    <div class="title">underscores. - U</div>
+                    <div class="sub">Album, 2026</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=368227010&uct2=U2FsdGVkX18wWRCgzdCQNbnB8RqrGVf0Rc+XdMoPTGg=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/brikham.jpg" alt="Former hero - brikham" />
+                <div class="meta">
+                    <div class="title">Former Hero / Brikham - Birkham</div>
+                    <div class="sub">Album, 2026</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=364564348&uct2=U2FsdGVkX1+cNfM0pmJ8zlnqs/TU1YoS7Y1EdCBVZiI=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/2ndside.jpg" alt="Yorushika - 2ndside" />
+                <div class="meta">
+                    <div class="title">Yorushika (ヨルシカ) - 二人称</div>
+                    <div class="sub">Album, 2026</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=281246261&uct2=U2FsdGVkX18IxrSu2HkbMAUIRwsYfn6rCXqBDEalgmM=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/tmdtf.jpg" alt="EAR - tmdtf" />
+                <div class="meta">
+                    <div class="title">EAR - The Most Dear and The Future</div>
+                    <div class="sub">Album, 2025</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=277581233&uct2=U2FsdGVkX1/c3RHwPSgkKGqaOQRCg3z0LXyH3XjSEfE=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/ilmc.jpg" alt="nina - ILMC" />
+                <div class="meta">
+                    <div class="title">Ninajirachi - I Love My Computer</div>
+                    <div class="sub">Album, 2025</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=272780692&uct2=U2FsdGVkX1+RkLlciD7250NOtuwmx3cQA3efMqFI6Mc=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/caroline2.jpg" alt="caroline2" />
+                <div class="meta">
+                    <div class="title">caroline - caroline 2</div>
+                    <div class="sub">Album, 2025</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=263373444&uct2=U2FsdGVkX1+klFE2jmFgfF/wrurKtfyarcSnK32Yi+A=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/ghcvol1.jpg" alt="ghc" />
+                <div class="meta">
+                    <div class="title">flipEMoff! - ghc: good hyperflip collection vol. 1</div>
+                    <div class="sub">Album, 2025, LMAO</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=250674900&uct2=U2FsdGVkX1/OeFw4nIIOOuAXqJom543gwtekNyZOHtg=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/bratbutdiff.jpg" alt="charli xcx - bratbut" />
+                <div class="meta">
+                    <div class="title">Charli XCX - Brat and it’s completely different but also still brat</div>
+                    <div class="sub">Album, 2024</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=250853956&uct2=U2FsdGVkX182AH2fLKlQlzRwB/eQHT+KNJrtodKc140=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/grandpop.jpg" alt="pas tasta - grandpop" />
+                <div class="meta">
+                    <div class="title">PAS TASTA - GRAND POP</div>
+                    <div class="sub">Album, 2024</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=126338915&uct2=U2FsdGVkX19dq/RddHBkSQWuQSgFEV32QfuRydJp4Ms=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/nurture.jpg" alt="Porter Robinson - Nurture" />
+                <div class="meta">
+                    <div class="title">Porter Robinson - Nurture</div>
+                    <div class="sub">Album, 2021</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=126338915&uct2=U2FsdGVkX19dq/RddHBkSQWuQSgFEV32QfuRydJp4Ms=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/goodfaith.jpg" alt="Madeon - Good Faith" />
+                <div class="meta">
+                    <div class="title">Madeon - Good Faith</div>
+                    <div class="sub">Album, 2019</div>
+                </div>
+            </a>
+
+            <a class="card" href="https://music.163.com/album?id=39563890&uct2=U2FsdGVkX1/RVbRNuhgU7PERaTYkRUTFHvSIL97/8LI=" target="_blank" rel="noopener noreferrer">
+                <img class="cover" src="./covers/ooepu.jpg" alt="SOPHIE - OOEPU" />
+                <div class="meta">
+                    <div class="title">SOPHIE - OIL OF EVERY PEARL'S UN-INSIDES</div>
+                    <div class="sub">Album, 2018</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <img src="../stick.jpg" alt="" />
+        <div class="shade"></div>
+
+        <div class="hero-panel">
+            <div class="hero-top">
+                <button class="close-btn" type="button" id="heroClose">close</button>
+            </div>
+
+            <div class="hero-menu-block">
+                <a class="hero-title" href="../index.html">hpeirtaz.</a>
+
+                <div class="hero-line"></div>
+
+                <nav class="hero-nav">
+                    <a href="../music">Music</a>
+                    <a href="../info">Info</a>
+                </nav>
+
+                <div class="hero-line"></div>
+
+                <div class="hero-links">
+                    <a href="https://soundcloud.com/hpeirtaz">SoundCloud</a>,
+                    <a href="https://open.spotify.com/artist/67Rmrx5iacd5bx7pOnNjVb">Spotify</a>,
+                    <a href="https://x.com/hpeirtaz_here">X(Twitter)</a>,
+                    <a href="https://patreon.com/itshpeirtaz">Patreon</a>,
+                    <a href="https://space.bilibili.com/434864188">Bilibili</a>,
+                    <a href="https://afdian.com/a/itshpeirtaz">爱发电</a>,
+                    <a href="https://music.163.com/#/artist?id=34490444">网易云音乐</a>,
+                    more?
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="foot">
+    <div class="foot-inner">
+        <div class="foot-rule"></div>
+        <div class="foot-note">
+            This is My Music Recommendations Page_  Hope you enjoy it!
+        </div>
+    </div>
+</div>
+
+<script>
+    const page = document.getElementById("page");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const menuOpen = document.getElementById("menuOpen");
+    const mobileClose = document.getElementById("mobileClose");
+    const heroClose = document.getElementById("heroClose");
+
+    function wideEnough() {
+        return window.innerWidth >= 720;
+    }
+
+    function openMenu() {
+        if (wideEnough()) {
+            page.classList.add("menu-on");
+        } else {
+            mobileMenu.classList.add("show");
+        }
+    }
+
+    function closeMenu() {
+        page.classList.remove("menu-on");
+        mobileMenu.classList.remove("show");
+    }
+
+    menuOpen.addEventListener("click", openMenu);
+    mobileClose.addEventListener("click", closeMenu);
+    heroClose.addEventListener("click", closeMenu);
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeMenu();
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        const desktopOpen = page.classList.contains("menu-on");
+        const mobileOpen = mobileMenu.classList.contains("show");
+
+        if (desktopOpen && !wideEnough()) {
+            page.classList.remove("menu-on");
+            mobileMenu.classList.add("show");
+        }
+
+        if (mobileOpen && wideEnough()) {
+            mobileMenu.classList.remove("show");
+            page.classList.add("menu-on");
+        }
+    });
+</script>
+</body>
+</html>
